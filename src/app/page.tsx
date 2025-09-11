@@ -1,9 +1,7 @@
- "use client"
+
+import React from "react"
+import App from "@/pages/landing/App"
 
 export default function Home() {
-  return (
-    <h1 className="text-5xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+  return <App/>  
 }
