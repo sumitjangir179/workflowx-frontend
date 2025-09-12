@@ -1,12 +1,12 @@
 import React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type Props = {
   label?: string;
   type: string;
   placeholder?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
+  register?: any;
+  error?: string;
   Icon?: React.ElementType;
 };
 
@@ -14,9 +14,8 @@ const InputWithIcon = ({
   label,
   type = "text",
   placeholder = "",
-  value,
-  onChange,
-  required = false,
+  register,
+  error,
   Icon,
 }: Props) => {
   return (
@@ -38,14 +37,13 @@ const InputWithIcon = ({
         <input
           id={label?.toLowerCase()}
           type={type}
-          value={value}
-          onChange={onChange}
-          required={required}
+          {...register}
           className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors text-gray-900"
           placeholder={placeholder}
-          name={label?.toLowerCase()}
         />
       </div>
+
+      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
     </div>
   );
 };
