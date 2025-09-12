@@ -1,21 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Workflow, ArrowRight, Mail, Zap } from "lucide-react";
 import InputWithIcon from "../ui/InputWithIcon";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpSchemaValidation } from "@/validations/auth.validation";
+import z from "zod";
+import { signInService } from "@/services/auth.service";
+import { toast, ToastContainer } from "react-toastify";
+
+type FormData = z.infer<typeof signUpSchemaValidation>;
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(signUpSchemaValidation) });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitted(true);
+  const onSubmitHandler = async (data: FormData) => {
+    try {
+      const user = await signInService({ email: data.email });
+      if (user.success) {
+        //dispatch the user to redux store
+        console.log(user);
+      } else {
+        toast.error(user.message || "Something went wrong");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
     <div className="min-h-screen bg-white flex">
+      <ToastContainer />
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10">
           <div
@@ -68,84 +89,51 @@ const SignUp = () => {
         </div>
 
         <div className="w-full max-w-md mx-auto">
-          {!isSubmitted ? (
-            <>
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  Get started today
-                </h2>
-                <p className="text-gray-600">
-                  Join thousands of teams already using WorkflowX to boost their
-                  productivity.
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <InputWithIcon
-                  label="Email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  Icon={Mail}
-                />
-
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors font-medium group"
-                >
-                  Create your account
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </form>
-
-              <div className="mt-8 text-center">
-                <p className="text-sm text-gray-600">
-                  Already have an account?{" "}
-                  <Link
-                    href="signin"
-                    className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
-                  >
-                    Sign in
-                  </Link>
-                </p>
-              </div>
-            </>
-          ) : (
-            <div className="text-center">
-              <div className="mb-6">
-                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                  <svg
-                    className="w-8 h-8 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  Check your email!
-                </h2>
-                <p className="text-gray-600">
-                  We've sent you a sign-up link at{" "}
-                  <span className="font-medium">{email}</span>
-                </p>
-              </div>
-              <button
-                onClick={() => setIsSubmitted(false)}
-                className="text-indigo-600 hover:text-indigo-500 font-medium transition-colors"
-              >
-                Try another email
-              </button>
+          <>
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Get started today
+              </h2>
+              <p className="text-gray-600">
+                Join thousands of teams already using WorkflowX to boost their
+                productivity.
+              </p>
             </div>
-          )}
+
+            <form
+              onSubmit={handleSubmit(onSubmitHandler)}
+              className="space-y-6"
+            >
+              <InputWithIcon
+                label="Email"
+                type="email"
+                placeholder="Enter your email"
+                register={register("email")}
+                error={errors.email?.message}
+                Icon={Mail}
+              />
+
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors font-medium group"
+              >
+                Create your account
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </form>
+
+            <div className="mt-8 text-center">
+              <p className="text-sm text-gray-600">
+                Already have an account?{" "}
+                <Link
+                  href="signin"
+                  className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
+                >
+                  Sign in
+                </Link>
+              </p>
+            </div>
+          </>
 
           <div className="mt-8 text-center">
             <p className="text-xs text-gray-500">
