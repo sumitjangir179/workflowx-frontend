@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { Workflow, ArrowRight, Mail, Zap } from "lucide-react";
+import InputWithIcon from "../ui/InputWithIcon";
+import Link from "next/link";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +13,6 @@ const SignUp = () => {
     e.preventDefault();
     setIsSubmitted(true);
   };
-
 
   return (
     <div className="min-h-screen bg-white flex">
@@ -80,28 +81,15 @@ const SignUp = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Email address
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Mail className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      id="email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors text-gray-900"
-                      placeholder="Enter your email"
-                    />
-                  </div>
-                </div>
+                <InputWithIcon
+                  label="Email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  Icon={Mail}
+                />
 
                 <button
                   type="submit"
@@ -115,12 +103,12 @@ const SignUp = () => {
               <div className="mt-8 text-center">
                 <p className="text-sm text-gray-600">
                   Already have an account?{" "}
-                  <a
-                    href="#"
+                  <Link
+                    href="signin"
                     className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
                   >
                     Sign in
-                  </a>
+                  </Link>
                 </p>
               </div>
             </>
@@ -169,12 +157,12 @@ const SignUp = () => {
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a
+              <Link
                 href="#"
                 className="underline hover:text-gray-700 transition-colors"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </p>
           </div>
         </div>
