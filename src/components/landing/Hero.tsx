@@ -12,14 +12,14 @@ const Hero = () => {
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Supercharge Your
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Development</span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Work</span>
             <br />
             Productivity
           </h1>
           
           <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
             WorkflowX is the all-in-one developer productivity platform. Manage projects, schedule meetings, 
-            create Excel diagrams, and streamline your entire development workflow in one powerful tool.
+            create Excel diagrams, and streamline your entire Work workflow in one powerful tool.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
