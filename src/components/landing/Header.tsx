@@ -17,11 +17,8 @@ const Header = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Features</a>
-            <a href="#testimonials" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Testimonials</a>
-            <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-              Get Started
-            </button>
+            <a href="#signin" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Sign In</a>
+            <a href="#signup" className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Sign Up</a>
           </nav>
 
           <button 
@@ -35,11 +32,8 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200">
             <div className="flex flex-col space-y-4">
-              <a href="#features" className="text-gray-600 hover:text-gray-900 font-medium">Features</a>
-              <a href="#testimonials" className="text-gray-600 hover:text-gray-900 font-medium">Testimonials</a>
-              <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg font-medium text-left">
-                Get Started
-              </button>
+              <a href="#signin" className="text-gray-600 hover:text-gray-900 font-medium">Sign In</a>
+              <a href="#signup" className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg font-medium text-left">Sign Up</a>
             </div>
           </div>
         )}

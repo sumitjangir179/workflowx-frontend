@@ -12,7 +12,7 @@ const Hero = () => {
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Supercharge Your
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Team</span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Development</span>
             <br />
             Productivity
           </h1>
