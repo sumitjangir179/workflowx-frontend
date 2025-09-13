@@ -31,3 +31,15 @@ export const updateUserDetails = async ({ name, password }) => {
     return error.response.data;
   }
 };
+
+export const getCurrentUser = async () => {
+  try{
+    const currentUser = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/users/current-user`,
+      { withCredentials: true }
+    );
+    return currentUser.data;
+  }catch{
+    return error.response.data;
+  }
+}
