@@ -10,10 +10,13 @@ import { signUpSchemaValidation } from "@/validations/auth.validation";
 import z from "zod";
 import { signInService } from "@/services/auth.service";
 import { toast, ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "@/store/features/auth.slice";
 
 type FormData = z.infer<typeof signUpSchemaValidation>;
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -23,9 +26,9 @@ const SignUp = () => {
   const onSubmitHandler = async (data: FormData) => {
     try {
       const user = await signInService({ email: data.email });
+      console.log(user);
       if (user.success) {
-        //dispatch the user to redux store
-        console.log(user);
+        dispatch(login(user.data.user));
       } else {
         toast.error(user.message || "Something went wrong");
       }
