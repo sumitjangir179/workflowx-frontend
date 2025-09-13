@@ -12,11 +12,14 @@ import { signInService } from "@/services/auth.service";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/features/auth.slice";
+import { useRouter } from "next/navigation";
 
 type FormData = z.infer<typeof signUpSchemaValidation>;
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -29,6 +32,7 @@ const SignUp = () => {
       console.log(user);
       if (user.success) {
         dispatch(login(user.data.user));
+        router.push("/onboarding/basic-details");
       } else {
         toast.error(user.message || "Something went wrong");
       }
